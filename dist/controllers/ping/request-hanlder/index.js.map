@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/controllers/ping/request-hanlder/index.ts"],"names":[],"mappings":";;;;;AACA,uDAAoC;AAEpC,MAAqB,kBAAkB;IACtC,MAAM,CAAC,UAAU,CAAC,IAAa,EAAE,GAAa,EAAE,KAAmB;QAClE,MAAM,QAAQ,GAAG,gBAAW,CAAC,UAAU,EAAE,CAAC;QAC1C,GAAG,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,IAAI,CAAC,QAAQ,CAAC,CAAC;IAChC,CAAC;CACD;AALD,qCAKC"}
