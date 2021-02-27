@@ -13,8 +13,8 @@ The steps to properly use this template as base should be:
 1. Clone this template.
 2. Install the dependencies _via_ `yarn install`.
 3. Add the prisma folder _via_ `npx prisma init`.
-4. Build the routes and spec for the documentation _via_ `yarn tsoa:build`, this will be later replaced by `docker-compose up`.
-5. Start the API _via_ `yarn start`, this will be later replaced by `docker-compose up`.
+4. Build the routes and spec for the documentation _via_ `yarn tsoa:build`. **_Note:_** This will be later replaced by `docker-compose up`.
+5. Start the API _via_ `yarn start`. **_Note:_** This will be later replaced by `docker-compose up`.
 
 ## To Add Later
 
