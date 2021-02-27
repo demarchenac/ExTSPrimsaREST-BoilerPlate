@@ -5,10 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"tsoa:build": "tsoa spec-and-routes && tsc",
-		"watch": "tsc -w",
-		"dev:build": "yarn tsoa swagger -c ./tsoa.json && node ./dist/index.js",
-		"dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
-		"swagger:watch": "tsoa spec",
+		"dev:compile": "tsoa spec-and-routes && tsc && node dist/index.js",
+		"dev": "nodemon -e ts --ignore src/api/routes.ts --exec \"yarn run dev:compile\"",
 		"start": "node dist/index.js",
 		"tsoa:gen": "yarn tsoa swagger -c ./tsoa.json",
 		"build:api": "tsoa:gen && yarn tsc -p ./api/tsconfig.json",
@@ -35,6 +33,7 @@
 		"@types/node": "^14.14.31",
 		"@types/reflect-metadata": "^0.1.0",
 		"@types/source-map-support": "^0.5.3",
+		"nodemon": "^2.0.7",
 		"tsc-watch": "^4.2.9",
 		"typescript": "^4.2.2"
 	},

@@ -7,6 +7,6 @@ export class PingController extends Controller {
 	@Get()
 	@SuccessResponse(200, 'Sucess!') // Custom success response
 	public async getPing(): Promise<PingResponse> {
-		return { message: 'pong.' };
+		return { message: 'Pong.' };
 	}
 }
