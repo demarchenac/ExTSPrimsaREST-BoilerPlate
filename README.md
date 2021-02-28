@@ -13,24 +13,24 @@ This is a template repository with a REST Express API build with:
 ├── dist
 ├── node_modules
 ├── prisma
-│ └── schema.prisma
+│   └── schema.prisma
 ├── src
-│ ├── api
-│ │ ├── components
-│ │ │ ├── new_controller
-│ │ │ │ ├── new_controller.controller.ts
-│ │ │ │ ├── new_controller.service.ts
-│ │ │ │ └── new_controller.types.ts
-│ │ ├── middlewares
-│ │ │ └── index.ts
-│ │ ├── routes.ts
-│ │ ├── server.ts
-│ ├── config
-│ │ ├── docs
-│ │ │ └── swagger.json
-│ │ └── globals.ts
-│ ├── services
-│ └── index.ts
+│   ├── api
+│   │   ├── components
+│   │   │   ├── new_controller
+│   │   │   │   ├── new_controller.controller.ts
+│   │   │   │   ├── new_controller.service.ts
+│   │   │   │   └── new_controller.types.ts
+│   │   ├── middlewares
+│   │   │   └── index.ts
+│   │   ├── routes.ts
+│   │   ├── server.ts
+│   ├── config
+│   │   ├── docs
+│   │   │   └── swagger.json
+│   │   └── globals.ts
+│   ├── services
+│   └── index.ts
 ├── .env
 ├── .env.example
 ├── .gitignore
