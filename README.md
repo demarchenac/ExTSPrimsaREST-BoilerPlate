@@ -8,7 +8,7 @@ This is a template repository with a REST Express API build with:
 
 ## Folder Structure
 
-``` bash
+```bash
 .
 ├── dist
 ├── node_modules
@@ -17,6 +17,9 @@ This is a template repository with a REST Express API build with:
 ├── src
 │   ├── api
 │   │   ├── components
+│   │   │   ├── controller_1
+│   │   │   ├── controller_2
+│   │   │   ├── ...
 │   │   │   ├── new_controller
 │   │   │   │   ├── new_controller.controller.ts
 │   │   │   │   ├── new_controller.service.ts
