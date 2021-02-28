@@ -8,36 +8,38 @@ This is a template repository with a REST Express API build with:
 
 ## Folder Structure
 
+``` bash
 .
-+-- \_dist
-+-- \_node_modules
-+-- \_prisma
-| +-- schema.prisma
-+-- \_src
-| +-- \_api
-| | +-- \_components
-| | | +-- \_new_controller
-| | | | +-- new_controller.controller.ts
-| | | | +-- new_controller.service.ts
-| | | | +-- new_controller.types.ts
-| | +-- \_middlewares
-| | | +-- index.ts
-| | +-- routes.ts
-| | +-- server.ts
-| +-- \_config
-| | +-- \_docs
-| | | +-- swagger.json
-| | +-- globals.ts
-| +-- \_services
-| +-- index.ts
-+-- .env
-+-- .env.example
-+-- .gitignore
-+-- package.json
-+-- README.md
-+-- tsconfig.json
-+-- tsoa.json
-+-- yarn.lock
+├── dist
+├── node_modules
+├── prisma
+│ └── schema.prisma
+├── src
+│ ├── api
+│ │ ├── components
+│ │ │ ├── new_controller
+│ │ │ │ ├── new_controller.controller.ts
+│ │ │ │ ├── new_controller.service.ts
+│ │ │ │ └── new_controller.types.ts
+│ │ ├── middlewares
+│ │ │ └── index.ts
+│ │ ├── routes.ts
+│ │ ├── server.ts
+│ ├── config
+│ │ ├── docs
+│ │ │ └── swagger.json
+│ │ └── globals.ts
+│ ├── services
+│ └── index.ts
+├── .env
+├── .env.example
+├── .gitignore
+├── package.json
+├── README.md
+├── tsconfig.json
+├── tsoa.json
+└── yarn.lock
+```
 
 ## Setup
 
