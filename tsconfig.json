@@ -43,7 +43,9 @@
 
 		/* Custom paths */
 		"paths": {
-			"@config/*": ["src/config/*"]
+			"@config/*": ["src/config/*"],
+			"@services/*": ["src/services/*"],
+			"@appTypes/*": ["src/types/*"]
 		}
 	},
 	"exclude": ["node_modules"],

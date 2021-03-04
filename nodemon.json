@@ -2,7 +2,7 @@
 	"watch": ["src/"],
 	"ignore": ["src/api/routes.ts"],
 	"events": {
-		"restart": "osascript -e 'Display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
+		"restart": "echo 'Running Restart hooks!'"
 	},
 	"ext": "ts",
 	"verbose": true,

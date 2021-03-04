@@ -17,44 +17,44 @@ import { json, Router } from 'express';
  * @returns {void}
  */
 export function registerMiddleware(router: Router): void {
-	router.use(helmet());
+    router.use(helmet());
 
-	// if (env.NODE_ENV === 'development') {
-	// 	router.use(cors({ origin: '*' }));
-	// } else {
-	// 	router.use(cors({ origin: ['http://localhost:4200'] }));
-	// }
+    // if (env.NODE_ENV === 'development') {
+    // 	router.use(cors({ origin: '*' }));
+    // } else {
+    // 	router.use(cors({ origin: ['http://localhost:4200'] }));
+    // }
 
-	// router.use((req: Request, res: Response, next: NextFunction) => {
-	// 	req.client = Clients[req.get('Client') as keyof typeof Clients];
+    // router.use((req: Request, res: Response, next: NextFunction) => {
+    // 	req.client = Clients[req.get('Client') as keyof typeof Clients];
 
-	// 	if (env.NODE_ENV === 'production' && req.client === undefined) {
-	// 		return res.status(401).send('Unknown client');
-	// 	}
+    // 	if (env.NODE_ENV === 'production' && req.client === undefined) {
+    // 		return res.status(401).send('Unknown client');
+    // 	}
 
-	// 	return next();
-	// });
+    // 	return next();
+    // });
 
-	router.use(json());
-	router.use(compression());
+    router.use(json());
+    router.use(compression());
 
-	// // Log incoming requests
-	// router.use((req: Request, res: Response, next: NextFunction) => {
-	// 	if (env.NODE_ENV !== 'test') {
-	// 		const ip: string | string[] | undefined =
-	// 			req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-	// 		logger.log({
-	// 			isRequest: true,
-	// 			level: 'info',
-	// 			message: `${req.method} ${req.url} ${ip}`,
-	// 		});
-	// 	}
+    // // Log incoming requests
+    // router.use((req: Request, res: Response, next: NextFunction) => {
+    // 	if (env.NODE_ENV !== 'test') {
+    // 		const ip: string | string[] | undefined =
+    // 			req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    // 		logger.log({
+    // 			isRequest: true,
+    // 			level: 'info',
+    // 			message: `${req.method} ${req.url} ${ip}`,
+    // 		});
+    // 	}
 
-	// 	return next();
-	// });
+    // 	return next();
+    // });
 
-	// // Setup passport strategies
-	// new AuthService().initStrategies();
+    // // Setup passport strategies
+    // new AuthService().initStrategies();
 }
 
 /**

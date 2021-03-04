@@ -1,3 +1,3 @@
 export interface PingResponse {
-	message: string;
+    message: string;
 }

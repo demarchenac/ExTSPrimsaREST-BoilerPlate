@@ -17,6 +17,215 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"User": {
+				"properties": {
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"username": {
+						"type": "string",
+						"nullable": true
+					},
+					"surName": {
+						"type": "string",
+						"nullable": true
+					},
+					"lastName": {
+						"type": "string",
+						"nullable": true
+					},
+					"middleName": {
+						"type": "string",
+						"nullable": true
+					},
+					"name": {
+						"type": "string",
+						"nullable": true
+					},
+					"phone": {
+						"type": "string",
+						"nullable": true
+					},
+					"phoneCode": {
+						"type": "string",
+						"nullable": true
+					},
+					"password": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"id": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"updatedAt",
+					"createdAt",
+					"username",
+					"surName",
+					"lastName",
+					"middleName",
+					"name",
+					"phone",
+					"phoneCode",
+					"password",
+					"email",
+					"id"
+				],
+				"type": "object",
+				"description": "Model User"
+			},
+			"UserResponseWithRecords": {
+				"properties": {
+					"data": {
+						"properties": {
+							"records": {
+								"items": {
+									"$ref": "#/components/schemas/User"
+								},
+								"type": "array"
+							}
+						},
+						"required": [
+							"records"
+						],
+						"type": "object"
+					},
+					"message": {
+						"type": "string"
+					},
+					"status": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"data",
+					"message",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UsersListed": {
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/User"
+					},
+					"message": {
+						"type": "string",
+						"enum": [
+							"users listed"
+						],
+						"nullable": false
+					},
+					"status": {
+						"type": "number",
+						"enum": [
+							"302"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"data",
+					"message",
+					"status"
+				],
+				"type": "object"
+			},
+			"UserResponse": {
+				"properties": {
+					"data": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/User"
+							}
+						],
+						"nullable": true
+					},
+					"message": {
+						"type": "string"
+					},
+					"status": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"data",
+					"message",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserFound": {
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/User"
+					},
+					"message": {
+						"type": "string",
+						"enum": [
+							"user found"
+						],
+						"nullable": false
+					},
+					"status": {
+						"type": "number",
+						"enum": [
+							"200"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"data",
+					"message",
+					"status"
+				],
+				"type": "object"
+			},
+			"UserNotFound": {
+				"properties": {
+					"data": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"message": {
+						"type": "string",
+						"enum": [
+							"user not found"
+						],
+						"nullable": false
+					},
+					"status": {
+						"type": "number",
+						"enum": [
+							"404"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"data",
+					"message",
+					"status"
+				],
+				"type": "object"
 			}
 		},
 		"securitySchemes": {}
@@ -51,6 +260,80 @@
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/user": {
+			"get": {
+				"operationId": "GetAllUsers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponseWithRecords"
+								}
+							}
+						}
+					},
+					"302": {
+						"description": "Users Listed!",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UsersListed"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Controller"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/user/{userId}": {
+			"get": {
+				"operationId": "GetUserById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not found!",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserNotFound"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Controller"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		}
 	},

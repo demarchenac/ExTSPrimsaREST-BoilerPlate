@@ -4,12 +4,14 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"tsoa:build": "tsoa spec-and-routes && tsc",
+		"build": "tsc",
 		"dev:compile": "tsoa spec-and-routes && tsc && node dist/index.js",
 		"dev:compile:migration": "yarn run prisma:migrate && tsoa spec-and-routes && tsc && node dist/index.js",
 		"dev": "nodemon --cofig nodemon.json",
 		"dev:migration": "nodemon --config nodemon.migration.json",
 		"start": "node dist/index.js",
+		"tsoa:generate": "tsoa spec-and-routes",
+		"tsoa:build": "tsoa spec-and-routes && tsc",
 		"prisma:introspect": "npx prisma introspect",
 		"prisma:migrate": "prisma migrate dev --name automatic_migration --preview-feature",
 		"test": "echo \"Error: no test specified\" && exit 1"
@@ -60,7 +62,8 @@
 	"_moduleAliases": {
 		"@root": ".",
 		"@config": "dist/config",
-		"@my_module": "lib/some-file.js",
+		"@services": "dist/services",
+		"@appTypes": "dist/types",
 		"something": "src/foo"
 	}
 }
