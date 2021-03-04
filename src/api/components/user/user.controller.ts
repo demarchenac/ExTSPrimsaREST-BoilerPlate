@@ -7,9 +7,6 @@ import { UserCreationParams } from './user.types';
 @Route('user')
 @Tags('User Controller')
 export class UserController extends Controller {
-    /**
-     *
-     */
     constructor() {
         super();
     }

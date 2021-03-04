@@ -1,69 +1,69 @@
 {
-	"name": "ExTSPrimsaREST-BoilerPlate",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"build": "tsc",
-		"dev:compile": "tsoa spec-and-routes && tsc && node dist/index.js",
-		"dev:compile:migration": "yarn run prisma:migrate && tsoa spec-and-routes && tsc && node dist/index.js",
-		"dev": "nodemon --cofig nodemon.json",
-		"dev:migration": "nodemon --config nodemon.migration.json",
-		"start": "node dist/index.js",
-		"tsoa:generate": "tsoa spec-and-routes",
-		"tsoa:build": "tsoa spec-and-routes && tsc",
-		"prisma:introspect": "npx prisma introspect",
-		"prisma:migrate": "prisma migrate dev --name automatic_migration --preview-feature",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/cddemar/ExTSPrimsaREST-BoilerPlate.git"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/cddemar/ExTSPrimsaREST-BoilerPlate/issues"
-	},
-	"homepage": "https://github.com/cddemar/ExTSPrimsaREST-BoilerPlate#readme",
-	"devDependencies": {
-		"@types/compression": "^1.7.0",
-		"@types/cors": "^2.8.10",
-		"@types/express": "^4.17.11",
-		"@types/helmet": "^4.0.0",
-		"@types/module-alias": "^2.0.0",
-		"@types/morgan": "^1.9.2",
-		"@types/node": "^14.14.31",
-		"@types/reflect-metadata": "^0.1.0",
-		"@types/source-map-support": "^0.5.3",
-		"nodemon": "^2.0.7",
-		"tsc-watch": "^4.2.9",
-		"typescript": "^4.2.2"
-	},
-	"dependencies": {
-		"@prisma/client": "^2.18.0",
-		"@types/dotenv": "^8.2.0",
-		"@types/swagger-ui-express": "^4.1.2",
-		"compression": "^1.7.4",
-		"concurrently": "^6.0.0",
-		"cors": "^2.8.5",
-		"dotenv": "^8.2.0",
-		"express": "^4.17.1",
-		"helmet": "^4.4.1",
-		"module-alias": "^2.2.2",
-		"morgan": "^1.10.0",
-		"prisma": "^2.18.0",
-		"reflect-metadata": "^0.1.13",
-		"source-map-support": "^0.5.19",
-		"swagger-ui-express": "^4.1.6",
-		"tsoa": "^3.5.2"
-	},
-	"_moduleAliases": {
-		"@root": ".",
-		"@config": "dist/config",
-		"@services": "dist/services",
-		"@appTypes": "dist/types",
-		"something": "src/foo"
-	}
+    "name": "ExTSPrimsaREST-BoilerPlate",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "dev:compile": "tsoa spec-and-routes && tsc && node dist/index.js",
+        "dev:compile:migration": "yarn run prisma:migrate && tsoa spec-and-routes && tsc && node dist/index.js",
+        "dev": "nodemon --cofig nodemon.json",
+        "dev:migration": "nodemon --config nodemon.migration.json",
+        "start": "node dist/index.js",
+        "tsoa:generate": "tsoa spec-and-routes",
+        "tsoa:build": "tsoa spec-and-routes && tsc",
+        "prisma:introspect": "npx prisma introspect",
+        "prisma:migrate": "prisma migrate dev --name automatic_migration --preview-feature",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cddemar/ExTSPrimsaREST-BoilerPlate.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/cddemar/ExTSPrimsaREST-BoilerPlate/issues"
+    },
+    "homepage": "https://github.com/cddemar/ExTSPrimsaREST-BoilerPlate#readme",
+    "devDependencies": {
+        "@types/compression": "^1.7.0",
+        "@types/cors": "^2.8.10",
+        "@types/express": "^4.17.11",
+        "@types/helmet": "^4.0.0",
+        "@types/module-alias": "^2.0.0",
+        "@types/morgan": "^1.9.2",
+        "@types/node": "^14.14.31",
+        "@types/reflect-metadata": "^0.1.0",
+        "@types/source-map-support": "^0.5.3",
+        "nodemon": "^2.0.7",
+        "tsc-watch": "^4.2.9",
+        "typescript": "^4.2.2"
+    },
+    "dependencies": {
+        "@prisma/client": "^2.18.0",
+        "@types/dotenv": "^8.2.0",
+        "@types/swagger-ui-express": "^4.1.2",
+        "compression": "^1.7.4",
+        "concurrently": "^6.0.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "helmet": "^4.4.1",
+        "module-alias": "^2.2.2",
+        "morgan": "^1.10.0",
+        "prisma": "^2.18.0",
+        "reflect-metadata": "^0.1.13",
+        "source-map-support": "^0.5.19",
+        "swagger-ui-express": "^4.1.6",
+        "tsoa": "^3.5.2"
+    },
+    "_moduleAliases": {
+        "@root": ".",
+        "@config": "dist/config",
+        "@services": "dist/services",
+        "@appTypes": "dist/types",
+        "something": "src/foo"
+    }
 }

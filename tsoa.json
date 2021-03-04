@@ -1,14 +1,21 @@
 {
-	"entryFile": "src/index.ts",
-	"noImplicitAdditionalProperties": "throw-on-extras",
-	"controllerPathGlobs": ["src/**/*.controller.ts"],
-	"spec": {
-		"outputDirectory": "src/config/docs",
-		"specVersion": 3,
-		"host": "localhost:8000/api/v1"
-	},
-	"routes": {
-		"routesDir": "src/api",
-		"basePath": "/api/v1"
-	}
+    "entryFile": "src/index.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "controllerPathGlobs": ["src/**/*.controller.ts"],
+    "spec": {
+        "outputDirectory": "src/config/docs",
+        "specVersion": 3,
+        "host": "localhost:8000/api/v1",
+        "version": 1,
+        "contact": {
+            "name": "contact name, edit this in tsoa.json @ root.",
+            "email": "contact email, edit this in tsoa.json @ root.",
+            "url": "contact url, edit this in tsoa.json @ root."
+        }
+    },
+    "routes": {
+        "middleware": "express",
+        "routesDir": "src/api",
+        "basePath": "/api/v1"
+    }
 }
