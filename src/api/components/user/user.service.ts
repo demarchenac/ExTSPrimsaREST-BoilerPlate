@@ -1,5 +1,6 @@
 import prisma from '@services/prisma';
-import { UserResponse, UserResponseWithRecords } from './user.types';
+import { AlreadyExistsException, NotFoundException } from '../../../types/response.type';
+import { UserCreationParams, UserResponse, UserResponseWithRecords } from './user.types';
 
 export class UserService {
     static async getAllUsers(): Promise<UserResponseWithRecords> {
@@ -9,7 +10,16 @@ export class UserService {
 
     static async getUserById(userId: number): Promise<UserResponse> {
         const user = await prisma.user.findUnique({ where: { id: userId } });
-        if (!user) return UserResponse.NOT_FOUND();
+        if (!user) throw new NotFoundException();
         return UserResponse.FOUND(user);
+    }
+
+    static async createUser(payload: UserCreationParams): Promise<UserResponse> {
+        try {
+            const user = await prisma.user.create({ data: payload });
+            return UserResponse.CREATED(user);
+        } catch (error) {
+            throw new AlreadyExistsException();
+        }
     }
 }

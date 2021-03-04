@@ -1,8 +1,9 @@
-import compression from 'compression';
+// import compression from 'compression';
 // import cors from 'cors';
-import helmet from 'helmet';
+// import helmet from 'helmet';
 
-import { json, Router } from 'express';
+import { Application } from 'express';
+import bodyParser from 'body-parser';
 
 // import { AuthService } from '@services/auth';
 // import { UtilityService } from '@services/helper/utility';
@@ -16,8 +17,8 @@ import { json, Router } from 'express';
  * @param {Router} router
  * @returns {void}
  */
-export function registerMiddleware(router: Router): void {
-    router.use(helmet());
+export function RegisterMiddlewares(app: Application) {
+    // router.use(helmet());
 
     // if (env.NODE_ENV === 'development') {
     // 	router.use(cors({ origin: '*' }));
@@ -35,8 +36,10 @@ export function registerMiddleware(router: Router): void {
     // 	return next();
     // });
 
-    router.use(json());
-    router.use(compression());
+    // router.use(compression());
+
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
 
     // // Log incoming requests
     // router.use((req: Request, res: Response, next: NextFunction) => {

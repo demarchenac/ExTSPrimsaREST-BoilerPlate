@@ -116,42 +116,10 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"UsersListed": {
-				"properties": {
-					"data": {
-						"$ref": "#/components/schemas/User"
-					},
-					"message": {
-						"type": "string",
-						"enum": [
-							"users listed"
-						],
-						"nullable": false
-					},
-					"status": {
-						"type": "number",
-						"enum": [
-							"302"
-						],
-						"nullable": false
-					}
-				},
-				"required": [
-					"data",
-					"message",
-					"status"
-				],
-				"type": "object"
-			},
 			"UserResponse": {
 				"properties": {
 					"data": {
-						"allOf": [
-							{
-								"$ref": "#/components/schemas/User"
-							}
-						],
-						"nullable": true
+						"$ref": "#/components/schemas/User"
 					},
 					"message": {
 						"type": "string"
@@ -169,63 +137,66 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"UserFound": {
+			"NotFoundError": {
 				"properties": {
-					"data": {
-						"$ref": "#/components/schemas/User"
+					"status": {
+						"type": "number",
+						"format": "double",
+						"default": 404
+					},
+					"messages": {
+						"type": "string",
+						"default": "Entity not found"
+					},
+					"data": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AlreadyExistsError": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double",
+						"default": 409
 					},
 					"message": {
 						"type": "string",
-						"enum": [
-							"user found"
-						],
-						"nullable": false
+						"default": "The resource presents conflicts, it's possible that some of the fields already exists or the modification is not possible."
 					},
-					"status": {
-						"type": "number",
-						"enum": [
-							"200"
-						],
-						"nullable": false
-					}
+					"data": {}
 				},
-				"required": [
-					"data",
-					"message",
-					"status"
-				],
-				"type": "object"
+				"type": "object",
+				"additionalProperties": false
 			},
-			"UserNotFound": {
+			"Pick_User.email-or-name-or-lastName-or-password_": {
 				"properties": {
-					"data": {
-						"type": "number",
-						"enum": [
-							null
-						],
+					"email": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string",
 						"nullable": true
 					},
-					"message": {
+					"lastName": {
 						"type": "string",
-						"enum": [
-							"user not found"
-						],
-						"nullable": false
+						"nullable": true
 					},
-					"status": {
-						"type": "number",
-						"enum": [
-							"404"
-						],
-						"nullable": false
+					"password": {
+						"type": "string"
 					}
 				},
 				"required": [
-					"data",
-					"message",
-					"status"
+					"email",
+					"name",
+					"lastName",
+					"password"
 				],
-				"type": "object"
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"UserCreationParams": {
+				"$ref": "#/components/schemas/Pick_User.email-or-name-or-lastName-or-password_"
 			}
 		},
 		"securitySchemes": {}
@@ -275,23 +246,55 @@
 								}
 							}
 						}
-					},
-					"302": {
-						"description": "Users Listed!",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/UsersListed"
-								}
-							}
-						}
 					}
 				},
+				"description": "Retrieves the details of all users.",
 				"tags": [
 					"User Controller"
 				],
 				"security": [],
 				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateUser",
+				"responses": {
+					"201": {
+						"description": "Resource created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "The resource presents conflicts, it's possible that some of the fields already exists or the modification is not possible.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AlreadyExistsError"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates an user.\nSupply the required user fields and receive corresponding user details.",
+				"tags": [
+					"User Controller"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserCreationParams"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/user/{userId}": {
@@ -309,22 +312,24 @@
 						}
 					},
 					"404": {
-						"description": "Not found!",
+						"description": "Resource not found",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/UserNotFound"
+									"$ref": "#/components/schemas/NotFoundError"
 								}
 							}
 						}
 					}
 				},
+				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
 				"tags": [
 					"User Controller"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "userId",
 						"required": true,

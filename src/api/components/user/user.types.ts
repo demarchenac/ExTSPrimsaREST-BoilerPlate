@@ -4,40 +4,30 @@
  */
 
 import { User } from '@prisma/client';
-import { RESPONSE } from '../../../config/globals';
+import { SUCCESS } from '../../../config';
 import { CustomResponse, ResponseRecordsResponse } from '../../../types/response.type';
+
+export type UserCreationParams = Pick<User, 'email' | 'name' | 'lastName' | 'password'>;
 
 export class UserResponse implements CustomResponse<User | null> {
     status: number;
     message: string;
-    data: User | null;
+    data: User;
 
-    constructor(status: number, message: string, data: User | null) {
+    constructor(status: number, message: string, data: User) {
         this.status = status;
         this.message = message;
         this.data = data;
     }
 
     static FOUND(data: User) {
-        return new UserResponse(RESPONSE.STATUS.OK, 'user found', data);
+        return new UserResponse(SUCCESS.STATUS.OK, SUCCESS.MESSAGE.FOUND, data);
     }
 
-    static NOT_FOUND() {
-        return new UserResponse(RESPONSE.STATUS.NOT_FOUND, 'user not found', null);
+    static CREATED(data: User) {
+        return new UserResponse(SUCCESS.STATUS.CREATED, SUCCESS.MESSAGE.CREATED, data);
     }
 }
-
-export type UserFound = {
-    status: 200;
-    message: 'user found';
-    data: User;
-};
-
-export type UserNotFound = {
-    status: 404;
-    message: 'user not found';
-    data: null;
-};
 
 export class UserResponseWithRecords implements ResponseRecordsResponse<User> {
     status: number;
@@ -51,12 +41,6 @@ export class UserResponseWithRecords implements ResponseRecordsResponse<User> {
     }
 
     static LISTED(records: User[]) {
-        return new UserResponseWithRecords(302, 'users listed', records);
+        return new UserResponseWithRecords(SUCCESS.STATUS.OK, SUCCESS.MESSAGE.LISTED, records);
     }
 }
-
-export type UsersListed = {
-    status: 302;
-    message: 'users listed';
-    data: User;
-};
