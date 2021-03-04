@@ -1,0 +1,10 @@
+{
+	"watch": ["src/"],
+	"ignore": ["src/api/routes.ts"],
+	"events": {
+		"restart": "osascript -e 'Display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
+	},
+	"ext": "ts",
+	"verbose": true,
+	"exec": "yarn run dev:compile:migration"
+}

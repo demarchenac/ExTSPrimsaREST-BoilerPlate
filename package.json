@@ -6,10 +6,12 @@
 	"scripts": {
 		"tsoa:build": "tsoa spec-and-routes && tsc",
 		"dev:compile": "tsoa spec-and-routes && tsc && node dist/index.js",
-		"dev": "nodemon -e ts --ignore src/api/routes.ts --exec \"yarn run dev:compile\"",
+		"dev:compile:migration": "yarn run prisma:migrate && tsoa spec-and-routes && tsc && node dist/index.js",
+		"dev": "nodemon --cofig nodemon.json",
+		"dev:migration": "nodemon --config nodemon.migration.json",
 		"start": "node dist/index.js",
-		"tsoa:gen": "yarn tsoa swagger -c ./tsoa.json",
-		"build:api": "tsoa:gen && yarn tsc -p ./api/tsconfig.json",
+		"prisma:introspect": "npx prisma introspect",
+		"prisma:migrate": "prisma migrate dev --name automatic_migration --preview-feature",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
@@ -38,6 +40,7 @@
 		"typescript": "^4.2.2"
 	},
 	"dependencies": {
+		"@prisma/client": "^2.18.0",
 		"@types/dotenv": "^8.2.0",
 		"@types/swagger-ui-express": "^4.1.2",
 		"compression": "^1.7.4",
@@ -48,7 +51,7 @@
 		"helmet": "^4.4.1",
 		"module-alias": "^2.2.2",
 		"morgan": "^1.10.0",
-		"prisma": "^2.17.0",
+		"prisma": "^2.18.0",
 		"reflect-metadata": "^0.1.13",
 		"source-map-support": "^0.5.19",
 		"swagger-ui-express": "^4.1.6",

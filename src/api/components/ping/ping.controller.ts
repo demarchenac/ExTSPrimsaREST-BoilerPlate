@@ -5,7 +5,7 @@ import { PingResponse } from './ping.types';
 @Tags('Ping Controller')
 export class PingController extends Controller {
 	@Get()
-	@SuccessResponse(200, 'Sucess!') // Custom success response
+	@SuccessResponse(200, 'Success!') // Custom success response
 	public async getPing(): Promise<PingResponse> {
 		return { message: 'Pong.' };
 	}

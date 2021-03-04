@@ -36,7 +36,7 @@
 				"operationId": "GetPing",
 				"responses": {
 					"200": {
-						"description": "Sucess!",
+						"description": "Success!",
 						"content": {
 							"application/json": {
 								"schema": {
