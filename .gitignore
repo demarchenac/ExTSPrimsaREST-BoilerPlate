@@ -4,8 +4,11 @@ node_modules
 # Enviroment
 .env
 
-# build
+# Build
 dist
 
-# database models
+# Logs
+logs
+
+# Database models
 prisma
