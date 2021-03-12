@@ -1,8 +1,8 @@
-import { Controller, Get, Route, Response, Tags, Post, Body, SuccessResponse } from 'tsoa';
+import { Controller, Get, Route, Response, Tags, Post, Body, SuccessResponse, Put } from 'tsoa';
 import { ERROR, SUCCESS } from '../../../config';
 import { AlreadyExistsError, NotFoundError } from '../../../types/response.type';
 import { UserService } from './user.service';
-import { UserCreationParams } from './user.types';
+import { UserCreationParams, UserUpdateParams } from './user.types';
 
 @Route('user')
 @Tags('User Controller')
@@ -36,8 +36,19 @@ export class UserController extends Controller {
      */
     @Post('/')
     @Response<AlreadyExistsError>(ERROR.STATUS.CONFLICT, ERROR.MESSAGE.ALREADY_EXISTS)
-    @SuccessResponse(SUCCESS.STATUS.CREATED, SUCCESS.MESSAGE.CREATED)
+    @SuccessResponse(SUCCESS.STATUS.CREATED)
     public async createUser(@Body() userCreationParams: UserCreationParams) {
         return UserService.createUser(userCreationParams);
+    }
+
+    /**
+     * Updates an user.
+     * Supply the required user fields and receive corresponding user details.
+     */
+    @Put('{userId}')
+    @Response<AlreadyExistsError>(ERROR.STATUS.CONFLICT, ERROR.MESSAGE.ALREADY_EXISTS)
+    @SuccessResponse(SUCCESS.STATUS.CREATED)
+    public async updateUser(userId: number, @Body() userUpdateParams: UserUpdateParams) {
+        return UserService.updateUser(userId, userUpdateParams);
     }
 }

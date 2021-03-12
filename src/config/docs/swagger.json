@@ -197,17 +197,75 @@
 			},
 			"UserCreationParams": {
 				"$ref": "#/components/schemas/Pick_User.email-or-name-or-lastName-or-password_"
+			},
+			"Pick_User.email-or-name-or-lastName-or-password-or-middleName-or-phone-or-phoneCode-or-surName-or-username_": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string",
+						"nullable": true
+					},
+					"lastName": {
+						"type": "string",
+						"nullable": true
+					},
+					"password": {
+						"type": "string"
+					},
+					"middleName": {
+						"type": "string",
+						"nullable": true
+					},
+					"phone": {
+						"type": "string",
+						"nullable": true
+					},
+					"phoneCode": {
+						"type": "string",
+						"nullable": true
+					},
+					"surName": {
+						"type": "string",
+						"nullable": true
+					},
+					"username": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"email",
+					"name",
+					"lastName",
+					"password",
+					"middleName",
+					"phone",
+					"phoneCode",
+					"surName",
+					"username"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"UserUpdateParams": {
+				"$ref": "#/components/schemas/Pick_User.email-or-name-or-lastName-or-password-or-middleName-or-phone-or-phoneCode-or-surName-or-username_"
 			}
 		},
 		"securitySchemes": {}
 	},
 	"info": {
 		"title": "ExTSPrimsaREST-BoilerPlate",
-		"version": "1.0.0",
+		"version": 1,
 		"license": {
 			"name": "ISC"
 		},
-		"contact": {}
+		"contact": {
+			"name": "contact name, edit this in tsoa.json @ root.",
+			"email": "contact email, edit this in tsoa.json @ root.",
+			"url": "contact url, edit this in tsoa.json @ root."
+		}
 	},
 	"openapi": "3.0.0",
 	"paths": {
@@ -259,7 +317,7 @@
 				"operationId": "CreateUser",
 				"responses": {
 					"201": {
-						"description": "Resource created",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -339,6 +397,57 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "UpdateUser",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "The resource presents conflicts, it's possible that some of the fields already exists or the modification is not possible.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AlreadyExistsError"
+								}
+							}
+						}
+					}
+				},
+				"description": "Updates an user.\nSupply the required user fields and receive corresponding user details.",
+				"tags": [
+					"User Controller"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserUpdateParams"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

@@ -1,4 +1,5 @@
 export * from './globals';
+export { Logger } from './logger';
 
 import { Server } from '../api/server';
 import { RegisterRoutes } from '../api/routes';

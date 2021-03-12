@@ -8,6 +8,10 @@ import { SUCCESS } from '../../../config';
 import { CustomResponse, ResponseRecordsResponse } from '../../../types/response.type';
 
 export type UserCreationParams = Pick<User, 'email' | 'name' | 'lastName' | 'password'>;
+export type UserUpdateParams = Pick<
+    User,
+    'email' | 'name' | 'lastName' | 'password' | 'middleName' | 'phone' | 'phoneCode' | 'surName' | 'username'
+>;
 
 export class UserResponse implements CustomResponse<User | null> {
     status: number;
@@ -26,6 +30,10 @@ export class UserResponse implements CustomResponse<User | null> {
 
     static CREATED(data: User) {
         return new UserResponse(SUCCESS.STATUS.CREATED, SUCCESS.MESSAGE.CREATED, data);
+    }
+
+    static UPDATED(data: User) {
+        return new UserResponse(SUCCESS.STATUS.OK, SUCCESS.MESSAGE.UPDATED, data);
     }
 }
 

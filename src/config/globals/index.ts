@@ -30,5 +30,6 @@ export const SUCCESS = {
         FOUND: 'Resource found',
         LISTED: 'Resources listed',
         CREATED: 'Resource created',
+        UPDATED: 'Resource created',
     },
 };
