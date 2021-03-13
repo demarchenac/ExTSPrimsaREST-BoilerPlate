@@ -13,15 +13,19 @@ export type ResponseRecordsResponse<T> = {
     data: { records: T[] };
 };
 
-export class RouteNotFoundError {
-    status = ERROR.STATUS.NOT_FOUND;
-    messages = ERROR.MESSAGE.NOT_FOUND;
-    data = null;
+export class BadRequestError {
+    status = ERROR.STATUS.BAD_REQUEST;
+    message = ERROR.MESSAGE.BAD_REQUEST;
+    data: FieldErrors | null = null;
+
+    constructor(error: ValidateError) {
+        this.data = error?.fields;
+    }
 }
 
-export class NotFoundError {
-    status = ERROR.STATUS.NOT_FOUND;
-    messages = ERROR.MESSAGE.ENTITY_NOT_FOUND;
+export class InternalServerError {
+    status = ERROR.STATUS.INTERNAL_SERVER;
+    message = ERROR.MESSAGE.INTERNAL_SERVER;
     data = null;
 }
 
@@ -34,6 +38,17 @@ export class NotFoundException extends Error {
         super();
         Object.setPrototypeOf(this, NotFoundException.prototype);
     }
+}
+export class RouteNotFoundError {
+    status = ERROR.STATUS.NOT_FOUND;
+    messages = ERROR.MESSAGE.NOT_FOUND;
+    data = null;
+}
+
+export class NotFoundError {
+    status = ERROR.STATUS.NOT_FOUND;
+    messages = ERROR.MESSAGE.ENTITY_NOT_FOUND;
+    data = null;
 }
 
 export class AlreadyExistsException extends Error {
@@ -53,18 +68,19 @@ export class AlreadyExistsError {
     data = null;
 }
 
-export class BadRequestError {
-    status = ERROR.STATUS.BAD_REQUEST;
-    message = ERROR.MESSAGE.BAD_REQUEST;
-    data: FieldErrors | null = null;
+export class InvalidCredentialsException extends Error {
+    public readonly name = 'InvalidCredentialsException';
+    public readonly code = 'InvalidCredentialsException';
+    public readonly message = ERROR.MESSAGE.INVALID_CREDENTIALS;
 
-    constructor(error: ValidateError) {
-        this.data = error?.fields;
+    constructor() {
+        super();
+        Object.setPrototypeOf(this, InvalidCredentialsException.prototype);
     }
 }
 
-export class InternalServerError {
-    status = ERROR.STATUS.INTERNAL_SERVER;
-    message = ERROR.MESSAGE.INTERNAL_SERVER;
+export class InvalidCredentialsError {
+    status = ERROR.STATUS.CONFLICT;
+    message = ERROR.MESSAGE.INVALID_CREDENTIALS;
     data = null;
 }

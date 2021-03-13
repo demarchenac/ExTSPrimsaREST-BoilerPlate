@@ -5,27 +5,34 @@ import {
     AlreadyExistsException,
     BadRequestError,
     InternalServerError,
+    InvalidCredentialsError,
+    InvalidCredentialsException,
     NotFoundError,
     NotFoundException,
-} from '../../types/response.type';
+} from '@appTypes/response.type';
 import { ERROR } from '../globals';
 import { Logger } from '../logger';
 
 export function RegisterErrorHandler(app: Application) {
     app.use(function errorHandler(error: unknown, req: Request, res: Response, next: NextFunction): Response | void {
         if (error instanceof ValidateError) {
-            Logger.warn(`Caught Validation Error for ${req.path}:`, error.fields);
+            Logger.warn(`Caught ValidateError for ${req.path}:`, error.fields);
             return res.status(ERROR.STATUS.BAD_REQUEST).json(new BadRequestError(error));
         }
 
         if (error instanceof NotFoundException) {
-            Logger.warn(`Caught Not Found Exception for ${req.path} ...`);
+            Logger.warn(`Caught NotFoundException for ${req.path} ...`);
             return res.status(ERROR.STATUS.NOT_FOUND).json(new NotFoundError());
         }
 
         if (error instanceof AlreadyExistsException) {
-            Logger.warn(`Caught Already Exists Exception for ${req.path} ...`);
+            Logger.warn(`Caught AlreadyExistsException for ${req.path} ...`);
             return res.status(ERROR.STATUS.CONFLICT).json(new AlreadyExistsError());
+        }
+
+        if (error instanceof InvalidCredentialsException) {
+            Logger.warn(`Caught InvalidCredentialsException for ${req.path} ...`);
+            return res.status(ERROR.STATUS.CONFLICT).json(new InvalidCredentialsError());
         }
 
         if (error instanceof Error) {

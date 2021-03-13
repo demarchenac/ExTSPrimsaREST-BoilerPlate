@@ -7,10 +7,10 @@ import { User } from '@prisma/client';
 import { SUCCESS } from '../../../config';
 import { CustomResponse, ResponseRecordsResponse } from '../../../types/response.type';
 
-export type UserCreationParams = Pick<User, 'email' | 'name' | 'lastName' | 'password'>;
+export type UserCreationParams = Pick<User, 'email' | 'firstName' | 'lastName' | 'password'>;
 export type UserUpdateParams = Pick<
     User,
-    'email' | 'name' | 'lastName' | 'password' | 'middleName' | 'phone' | 'phoneCode' | 'surName' | 'username'
+    'email' | 'firstName' | 'lastName' | 'password' | 'middleName' | 'phone' | 'phoneCode' | 'surName' | 'username'
 >;
 
 export class UserResponse implements CustomResponse<User | null> {

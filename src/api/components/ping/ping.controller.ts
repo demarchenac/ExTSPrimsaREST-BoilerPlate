@@ -1,5 +1,5 @@
 import { Controller, Get, Route, SuccessResponse, Tags } from 'tsoa';
-import { PingResponse } from './ping.types';
+import { PingResponse } from './ping.type';
 
 @Route('ping')
 @Tags('Ping Controller')

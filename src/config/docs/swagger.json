@@ -6,6 +6,139 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"TokenNode": {
+				"properties": {
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"token"
+				],
+				"type": "object"
+			},
+			"AuthResponse": {
+				"properties": {
+					"data": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/TokenNode"
+							}
+						],
+						"nullable": true
+					},
+					"message": {
+						"type": "string"
+					},
+					"status": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"data",
+					"message",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NotFoundError": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double",
+						"default": 404
+					},
+					"messages": {
+						"type": "string",
+						"default": "Entity not found."
+					},
+					"data": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InvalidCredentialsError": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double",
+						"default": 409
+					},
+					"message": {
+						"type": "string",
+						"default": "Invalid credentials. Verify either your email or password."
+					},
+					"data": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_User.email-or-password_": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"LoginParams": {
+				"$ref": "#/components/schemas/Pick_User.email-or-password_"
+			},
+			"AlreadyExistsError": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double",
+						"default": 409
+					},
+					"message": {
+						"type": "string",
+						"default": "The resource presents conflicts, it's possible that some of the fields already exists or the modification is not possible."
+					},
+					"data": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_User.email-or-firstName-or-lastName-or-password_": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string",
+						"nullable": true
+					},
+					"lastName": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"email",
+					"password",
+					"firstName",
+					"lastName"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"SignUpParams": {
+				"$ref": "#/components/schemas/Pick_User.email-or-firstName-or-lastName-or-password_"
+			},
 			"PingResponse": {
 				"properties": {
 					"message": {
@@ -44,7 +177,7 @@
 						"type": "string",
 						"nullable": true
 					},
-					"name": {
+					"firstName": {
 						"type": "string",
 						"nullable": true
 					},
@@ -62,6 +195,10 @@
 					"email": {
 						"type": "string"
 					},
+					"tokenVersion": {
+						"type": "number",
+						"format": "double"
+					},
 					"id": {
 						"type": "number",
 						"format": "double"
@@ -74,11 +211,12 @@
 					"surName",
 					"lastName",
 					"middleName",
-					"name",
+					"firstName",
 					"phone",
 					"phoneCode",
 					"password",
 					"email",
+					"tokenVersion",
 					"id"
 				],
 				"type": "object",
@@ -137,82 +275,24 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"NotFoundError": {
-				"properties": {
-					"status": {
-						"type": "number",
-						"format": "double",
-						"default": 404
-					},
-					"messages": {
-						"type": "string",
-						"default": "Entity not found"
-					},
-					"data": {}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AlreadyExistsError": {
-				"properties": {
-					"status": {
-						"type": "number",
-						"format": "double",
-						"default": 409
-					},
-					"message": {
-						"type": "string",
-						"default": "The resource presents conflicts, it's possible that some of the fields already exists or the modification is not possible."
-					},
-					"data": {}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"Pick_User.email-or-name-or-lastName-or-password_": {
-				"properties": {
-					"email": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string",
-						"nullable": true
-					},
-					"lastName": {
-						"type": "string",
-						"nullable": true
-					},
-					"password": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"email",
-					"name",
-					"lastName",
-					"password"
-				],
-				"type": "object",
-				"description": "From T, pick a set of properties whose keys are in the union K"
-			},
 			"UserCreationParams": {
-				"$ref": "#/components/schemas/Pick_User.email-or-name-or-lastName-or-password_"
+				"$ref": "#/components/schemas/Pick_User.email-or-firstName-or-lastName-or-password_"
 			},
-			"Pick_User.email-or-name-or-lastName-or-password-or-middleName-or-phone-or-phoneCode-or-surName-or-username_": {
+			"Pick_User.email-or-firstName-or-lastName-or-password-or-middleName-or-phone-or-phoneCode-or-surName-or-username_": {
 				"properties": {
 					"email": {
 						"type": "string"
 					},
-					"name": {
+					"password": {
+						"type": "string"
+					},
+					"firstName": {
 						"type": "string",
 						"nullable": true
 					},
 					"lastName": {
 						"type": "string",
 						"nullable": true
-					},
-					"password": {
-						"type": "string"
 					},
 					"middleName": {
 						"type": "string",
@@ -237,9 +317,9 @@
 				},
 				"required": [
 					"email",
-					"name",
-					"lastName",
 					"password",
+					"firstName",
+					"lastName",
 					"middleName",
 					"phone",
 					"phoneCode",
@@ -250,7 +330,7 @@
 				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
 			"UserUpdateParams": {
-				"$ref": "#/components/schemas/Pick_User.email-or-name-or-lastName-or-password-or-middleName-or-phone-or-phoneCode-or-surName-or-username_"
+				"$ref": "#/components/schemas/Pick_User.email-or-firstName-or-lastName-or-password-or-middleName-or-phone-or-phoneCode-or-surName-or-username_"
 			}
 		},
 		"securitySchemes": {}
@@ -269,6 +349,72 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuthResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Authenticates with user credentials",
+				"tags": [
+					"Auth Controller"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/signup": {
+			"post": {
+				"operationId": "Singup",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuthResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates an authenticates.\nSupply the required user fields and receive corresponding user details.",
+				"tags": [
+					"Auth Controller"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SignUpParams"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/ping": {
 			"get": {
 				"operationId": "GetPing",
@@ -316,22 +462,12 @@
 			"post": {
 				"operationId": "CreateUser",
 				"responses": {
-					"201": {
+					"200": {
 						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/UserResponse"
-								}
-							}
-						}
-					},
-					"409": {
-						"description": "The resource presents conflicts, it's possible that some of the fields already exists or the modification is not possible.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AlreadyExistsError"
 								}
 							}
 						}
@@ -368,16 +504,6 @@
 								}
 							}
 						}
-					},
-					"404": {
-						"description": "Resource not found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/NotFoundError"
-								}
-							}
-						}
 					}
 				},
 				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
@@ -401,22 +527,12 @@
 			"put": {
 				"operationId": "UpdateUser",
 				"responses": {
-					"201": {
+					"200": {
 						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/UserResponse"
-								}
-							}
-						}
-					},
-					"409": {
-						"description": "The resource presents conflicts, it's possible that some of the fields already exists or the modification is not possible.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AlreadyExistsError"
 								}
 							}
 						}
@@ -453,7 +569,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://localhost:8000/api/v1/"
+			"url": "https://localhost:8000/v1/"
 		}
 	]
 }

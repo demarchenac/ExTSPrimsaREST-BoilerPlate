@@ -1,6 +1,8 @@
 export const env = {
     NODE_ENV: process.env.NODE_ENV || 'development',
     NODE_PORT: process.env.NODE_PORT || process.env.PORT || 8000,
+    JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET || '',
+    JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || '',
     DATABASE_URL: process.env.DATABASE_URL || '',
 };
 
@@ -12,11 +14,12 @@ export const ERROR = {
         INTERNAL_SERVER: 500,
     },
     MESSAGE: {
-        BAD_REQUEST: 'Bad request',
-        NOT_FOUND: 'Resource not found',
-        ENTITY_NOT_FOUND: 'Entity not found',
+        BAD_REQUEST: 'Bad request.',
+        NOT_FOUND: 'Resource not found.',
+        ENTITY_NOT_FOUND: 'Entity not found.',
         ALREADY_EXISTS:
             "The resource presents conflicts, it's possible that some of the fields already exists or the modification is not possible.",
+        INVALID_CREDENTIALS: 'Invalid credentials. Verify either your email or password.',
         INTERNAL_SERVER: 'Internal server error.',
     },
 };

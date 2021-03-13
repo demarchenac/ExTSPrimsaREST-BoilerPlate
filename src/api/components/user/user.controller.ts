@@ -1,14 +1,17 @@
 import { Controller, Get, Route, Response, Tags, Post, Body, SuccessResponse, Put } from 'tsoa';
-import { ERROR, SUCCESS } from '../../../config';
-import { AlreadyExistsError, NotFoundError } from '../../../types/response.type';
+import { ERROR, SUCCESS } from '@config/globals';
+import { AlreadyExistsError, NotFoundError } from '@appTypes/response.type';
 import { UserService } from './user.service';
-import { UserCreationParams, UserUpdateParams } from './user.types';
+import { UserCreationParams, UserUpdateParams } from './user.type';
 
 @Route('user')
 @Tags('User Controller')
 export class UserController extends Controller {
+    userService: UserService;
+
     constructor() {
         super();
+        this.userService = new UserService();
     }
 
     /**
@@ -16,7 +19,7 @@ export class UserController extends Controller {
      */
     @Get('/')
     public async getAllUsers() {
-        return UserService.getAllUsers();
+        return this.userService.getAllUsers();
     }
 
     /**
@@ -27,7 +30,7 @@ export class UserController extends Controller {
     @Get('{userId}')
     @Response<NotFoundError>(ERROR.STATUS.NOT_FOUND, ERROR.MESSAGE.NOT_FOUND)
     public async getUserById(userId: number) {
-        return UserService.getUserById(userId);
+        return this.userService.getUserById(userId);
     }
 
     /**
@@ -38,7 +41,7 @@ export class UserController extends Controller {
     @Response<AlreadyExistsError>(ERROR.STATUS.CONFLICT, ERROR.MESSAGE.ALREADY_EXISTS)
     @SuccessResponse(SUCCESS.STATUS.CREATED)
     public async createUser(@Body() userCreationParams: UserCreationParams) {
-        return UserService.createUser(userCreationParams);
+        return this.userService.createUser(userCreationParams);
     }
 
     /**
@@ -49,6 +52,6 @@ export class UserController extends Controller {
     @Response<AlreadyExistsError>(ERROR.STATUS.CONFLICT, ERROR.MESSAGE.ALREADY_EXISTS)
     @SuccessResponse(SUCCESS.STATUS.CREATED)
     public async updateUser(userId: number, @Body() userUpdateParams: UserUpdateParams) {
-        return UserService.updateUser(userId, userUpdateParams);
+        return this.userService.updateUser(userId, userUpdateParams);
     }
 }
